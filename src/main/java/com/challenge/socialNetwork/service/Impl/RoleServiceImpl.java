@@ -14,12 +14,12 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public Role saveRole(String roleName) {
         Role role = new Role();
-        role.setName("ROLE_ADMIN");
+        role.setName(roleName);
         return roleRepository.save(role);
     }
 
     @Override
     public Role findByRoleName(String roleName) {
-        return roleRepository.findByName("ROLE_ADMIN");
+        return roleRepository.findByName(roleName);
     }
 }
