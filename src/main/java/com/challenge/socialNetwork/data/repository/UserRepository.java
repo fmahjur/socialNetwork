@@ -1,2 +1,11 @@
-package com.challenge.socialNetwork.data.repository;public class UserRepository {
+package com.challenge.socialNetwork.data.repository;
+
+import com.challenge.socialNetwork.data.model.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface UserRepository extends JpaRepository<User, Long> {
+    User findByEmail(String email);
+
 }
