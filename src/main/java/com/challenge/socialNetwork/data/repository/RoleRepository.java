@@ -1,2 +1,4 @@
-package com.challenge.socialNetwork.data.repository;public interface RoleRepository {
+package com.challenge.socialNetwork.data.repository;
+
+public interface RoleRepository {
 }
