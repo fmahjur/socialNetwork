@@ -6,7 +6,7 @@ import com.challenge.socialNetwork.data.model.User;
 import java.util.List;
 
 public interface UserService {
-    void saveUser(UserDto userDto);
+    void registerUser(UserDto userDto);
 
     User findUserById(Long id);
 

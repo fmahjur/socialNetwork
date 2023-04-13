@@ -1,7 +1,6 @@
 package com.challenge.socialNetwork.service.Impl;
 
 import com.challenge.socialNetwork.data.dto.UserDto;
-import com.challenge.socialNetwork.data.mapper.UserMapper;
 import com.challenge.socialNetwork.data.model.Role;
 import com.challenge.socialNetwork.data.model.User;
 import com.challenge.socialNetwork.data.repository.UserRepository;
@@ -25,7 +24,7 @@ public class UserServiceImpl implements UserService {
     private final RoleService roleService;
 
     @Override
-    public void saveUser(UserDto userDto) {
+    public void registerUser(UserDto userDto) {
         User user = new User();
         user.setFirstname(userDto.getFirstName());
         user.setLastname(userDto.getLastName());
@@ -34,7 +33,7 @@ public class UserServiceImpl implements UserService {
 
         Role role = roleService.findByRoleName("Role_USER");
         if (role == null) {
-            role = roleService.saveRole("Role_USER");
+            role = roleService.newRole("Role_USER");
         }
         user.setRoles(Arrays.asList(role));
         userRepository.save(user);
@@ -53,9 +52,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserDto> findAllUsers() {
         List<User> users = userRepository.findAll();
-        return users.stream()
-                .map((user) -> UserMapper.INSTANCE.modelToUserDto(user))
+        return users.stream().map((user) -> convertEntityToDto(user))
                 .collect(Collectors.toList());
+    }
+
+    private UserDto convertEntityToDto(User user){
+        UserDto userDto = new UserDto();
+        userDto.setFirstName(user.getFirstname());
+        userDto.setLastName(user.getLastname());
+        userDto.setEmail(user.getEmail());
+        return userDto;
     }
 
 

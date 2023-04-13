@@ -21,17 +21,39 @@ public class SecurityConfig {
     private final UserDetailsService userDetailsService;
 
     @Bean
-    public static PasswordEncoder passwordEncoder(){
+    public static PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        /*http
+                .csrf().disable()
+                .authorizeHttpRequests()
+                .requestMatchers("/register/**").permitAll()
+                .requestMatchers("/index").permitAll()
+                .requestMatchers("/users").hasRole("ROLE_USER")
+                .anyRequest()
+                .authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/login")
+                .loginProcessingUrl("/login")
+                .defaultSuccessUrl("/users")
+                .permitAll()
+                .and()
+                .httpBasic()
+                .and()
+                .logout()
+                .clearAuthentication(true)
+                .invalidateHttpSession(true)
+                .permitAll();
+        return http.build();*/
         http.csrf().disable()
                 .authorizeHttpRequests((authorize) ->
                         authorize.requestMatchers("/register/**").permitAll()
                                 .requestMatchers("/index").permitAll()
-                                .requestMatchers("/users").hasRole("USER")
+                                .requestMatchers("/users").permitAll()//hasRole("ROLE_USER")
                 ).formLogin(
                         form -> form
                                 .loginPage("/login")
