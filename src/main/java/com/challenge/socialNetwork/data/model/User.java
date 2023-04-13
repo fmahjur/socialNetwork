@@ -3,7 +3,9 @@ package com.challenge.socialNetwork.data.model;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +35,9 @@ public class User {
 
     @Column(nullable = false)
     String password;
+
+    @CreationTimestamp
+    LocalDateTime registeryDate;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinTable(
